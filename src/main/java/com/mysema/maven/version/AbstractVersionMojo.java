@@ -28,7 +28,7 @@ public abstract class AbstractVersionMojo extends AbstractMojo {
      * @required
      * @readonly
      */
-    protected File basedir;
+    private File basedir;
 
 
     @Override
