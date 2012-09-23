@@ -42,5 +42,13 @@ public class SetVersionMojoTest {
         assertTrue(Files.toString(targetPom, Charsets.UTF_8).contains("<version>2.0.1</version>"));
     }
     
+    @Test(expected=MojoFailureException.class)
+    public void Illegal() throws MojoExecutionException, MojoFailureException {
+        SetVersionMojo mojo = new SetVersionMojo();
+        mojo.setBasedir(new File("src/test/resources/illegal"));
+        System.setProperty("version", "2.0.1");
+        mojo.execute();
+    }
+    
 }
 

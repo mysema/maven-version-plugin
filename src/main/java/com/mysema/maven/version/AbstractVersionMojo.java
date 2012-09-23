@@ -2,11 +2,13 @@ package com.mysema.maven.version;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Nodes;
+import nu.xom.ParsingException;
 import nu.xom.Serializer;
 import nu.xom.XPathContext;
 
@@ -42,7 +44,7 @@ public abstract class AbstractVersionMojo extends AbstractMojo {
                 nodes = doc.query("/mvn:project/mvn:parent/mvn:version", context);
                 if (nodes.size() == 0){
                     getLog().error("No version found");
-                    return;
+                    throw new MojoFailureException("No version found");
                 }
             }
             if (update(nodes)){
@@ -50,8 +52,12 @@ public abstract class AbstractVersionMojo extends AbstractMojo {
                 serializer.write(doc);
             }
             
-        } catch (Exception e) {
+        } catch (IOException e) {
             getLog().error(e.getMessage(), e);
+            throw new MojoExecutionException(e.getMessage(), e);
+        } catch (ParsingException e) {
+            getLog().error(e.getMessage(), e);
+            throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
