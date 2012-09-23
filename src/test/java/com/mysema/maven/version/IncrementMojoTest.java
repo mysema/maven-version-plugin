@@ -26,5 +26,18 @@ public class IncrementMojoTest {
         mojo.execute();
         assertTrue(Files.toString(targetPom, Charsets.UTF_8).contains("<version>0.1.1</version>"));
     }
+    
+    @Test
+    public void Snapshot() throws MojoExecutionException, MojoFailureException, IOException {
+        File sourcePom = new File("src/test/resources/snapshot/pom.xml");
+        File targetPom = new File("target/snapshot/pom.xml");        
+        targetPom.getParentFile().mkdir();
+        Files.copy(sourcePom, targetPom);
+        
+        IncrementMojo mojo = new IncrementMojo();
+        mojo.setBasedir(new File("target/snapshot"));
+        mojo.execute();
+        assertTrue(Files.toString(targetPom, Charsets.UTF_8).contains("<version>0.1.1-SNAPSHOT</version>"));
+    }
 
 }
