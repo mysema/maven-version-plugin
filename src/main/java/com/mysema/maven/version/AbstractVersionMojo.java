@@ -30,7 +30,6 @@ public abstract class AbstractVersionMojo extends AbstractMojo {
      */
     private File basedir;
 
-
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
@@ -69,4 +68,9 @@ public abstract class AbstractVersionMojo extends AbstractMojo {
     }
     
     protected abstract String createValue(String value);
+
+    public void setBasedir(File basedir) {
+        this.basedir = basedir;
+    }
+    
 }
