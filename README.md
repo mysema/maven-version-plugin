@@ -1,5 +1,4 @@
-maven-version-plugin
-====================
+## maven-version-plugin
 
 To use maven-version-plugin include the following configuration in your POM :
 
